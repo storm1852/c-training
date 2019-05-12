@@ -1,0 +1,59 @@
+Linux
+Linux applications are represented by two special types of files: 
+executables and scripts.
+1.  Executable files
+are programs that can be run directly by the computer; they correspond to Windows .exe files
+2. scripts as .cmd .bat
+
+--
+$ gcc -o hello hello.c
+$ ./hello
+Hello World
+--
+ translated the C source code into an executable file called hello
+
+/usr/bin
+
+---- Header Files --  /usr/include (/sys or /linux)
+- provide definitions of constants and
+- declarations for system and library function calls
+- /usr/include/X11 for the X Window System 
+- /usr/include/c++ for GNU C++
+
+$ gcc -I/usr/openwin/include fred.c
+
+$ grep EXIT_ *.h
+Here grep searches all the files in the directory with a name ending in .h for the string EXIT_.
+
+---- Library Files -- /lib  or  /usr/lib
+ - collections of precompiled functions that have been written to be reusable
+ - sets of related functions to perform a common task
+ ex:  database access routines (the dbm library), screen-handling
+functions (the curses and ncurses libraries)
+
+.a for traditional, static libraries
+.so for shared libraries (see the following)
+
+$ gcc -o fred fred.c /usr/lib/libm.a
+s the compiler to compile file fred.c, call the resulting program file fred, and search the mathematical
+library in addition to the standard C library to resolve references to functions
+
+$ gcc -o fred fred.c -lm
+-lm notation is that the compiler will automatically choose the shared library
+when it exists
+
+$ gcc -o x11fred -L/usr/openwin/lib x11fred.c -lX11
+ compile and link a program called x11fred using the version of the library libX11 found in the
+/usr/openwin/lib directory
+
+--- Static Libraries .a
+–l  to indicate which libraries other than the standard C runtime library
+You can create and maintain your own static libraries very easily by using the ar (for archive) program
+and compiling functions separately with gcc -c
+
+$ ar crv libfoo.a bill.o fred.o
+use ar to create archives of files of any type
+
+$ ranlib libfoo.a
+require that a table of contents be created for
+the library. Do this with the ranlib command
